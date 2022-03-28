@@ -49,7 +49,10 @@ class LinearRegression(BaseEstimator):
         -----
         Fits model with or without an intercept depending on value of `self.include_intercept_`
         """
-        raise NotImplementedError()
+        # raise NotImplementedError()
+        if self.include_intercept_:
+            X = np.hstack((X, np.ones((X.shape, 1)))) # add 1's col to beginning of matrix
+        self.coefs_ = np.linalg.pinv(X).dot(y)
 
     def _predict(self, X: np.ndarray) -> np.ndarray:
         """
